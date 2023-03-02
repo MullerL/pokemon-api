@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { getAllPokemon, getPokemon } from './services/pokemon';
+import { getAllPokemon, getPokemon, getPokemonCharacteristic } from './services/pokemon';
 import Card from './components/Card';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
+import axios from 'axios';
+
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [nextUrl, setNextUrl] = useState('');
   const [previousUrl, setPreviousUrl] = useState('');
   const [loading, setLoading] = useState(true);
-  const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
+  const initialUrl = 'https://pokeapi.co/api/v2/pokemon?limit=21&offset=0';
 
   useEffect(() => {
     async function fetchData() {
@@ -24,6 +26,7 @@ function App() {
   }, []);
 
   const next = async () => {
+    if (!nextUrl) return;
     setLoading(true);
     let data = await getAllPokemon(nextUrl);
     await loadingPokemon(data.results);
@@ -46,6 +49,7 @@ function App() {
     let _pokemonData = await Promise.all(
       data.map(async pokemon => {
         let pokemonRecord = await getPokemon(pokemon.url);
+        //pokemonRecord.characteristic = await axios.get("https://pokeapi.co/api/v2/characteristic/" + pokemonRecord.id);
         return pokemonRecord;
       })
     );
@@ -57,12 +61,12 @@ function App() {
 
   return (
     <>
-      { loading ? <h1>Loading...</h1> : (
+      { loading ? <h1 className='loader-container'>Loading...</h1> : (
         <>
           <Navbar/>
           <div className="btn">
-            <button onClick={prev}>Prev</button>
-            <button onClick={next}>Next</button>
+            <button hidden={!previousUrl} onClick={prev}>Prev</button>
+            <button hidden={!nextUrl} onClick={next}>Next</button>
           </div>
           <div className="grid-container">
             {pokemonData.map((pokemon, i) => {
@@ -70,8 +74,8 @@ function App() {
             })}
           </div>
           <div className="btn">
-            <button onClick={prev}>Prev</button>
-            <button onClick={next}>Next</button>
+            <button hidden={!previousUrl} onClick={prev}>Prev</button>          
+            <button hidden={!nextUrl} onClick={next}>Next</button>
           </div>
         </>
       )}
