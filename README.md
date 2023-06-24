@@ -1,5 +1,4 @@
-
-<a target="_blank" href="https://pokemon-api-vercel-mullerl.vercel.app/">https://pokemon-api-vercel-mullerl.vercel.app/</a>
+https://pokemon-api-vercel-mullerl.vercel.app/
 
 > **EM DESENVOLVIMENTO!** :woman_technologist:
 # Pokemon API
