@@ -11,7 +11,7 @@ function App() {
   const [nextUrl, setNextUrl] = useState('');
   const [previousUrl, setPreviousUrl] = useState('');
   const [loading, setLoading] = useState(true);
-  const initialUrl = 'https://pokeapi.co/api/v2/pokemon?limit=21&offset=0';
+  const initialUrl = 'https://pokeapi.co/api/v2/pokemon?limit=21000&offset=0';
 
   useEffect(() => {
     async function fetchData() {
@@ -49,7 +49,7 @@ function App() {
     let _pokemonData = await Promise.all(
       data.map(async pokemon => {
         let pokemonRecord = await getPokemon(pokemon.url);
-        //pokemonRecord.characteristic = await axios.get("https://pokeapi.co/api/v2/characteristic/" + pokemonRecord.id);
+        pokemonRecord.characteristic = await getPokemonCharacteristic("https://pokeapi.co/api/v2/characteristic/" + pokemonRecord.id);
         return pokemonRecord;
       })
     );

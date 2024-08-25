@@ -6,7 +6,8 @@ function Card({ pokemon }) {
         return (
             <div id="scrollableDiv" className="Card">
                     <div className="Card__img">
-                        <img src={pokemon.sprites.other.dream_world.front_default} alt="Sorry! Image not available" />
+                        <img src={pokemon.sprites.other.showdown.front_default ?
+                            pokemon.sprites.other.showdown.front_default : pokemon.sprites.other.home.front_default} alt="Ops! Image not available" />
                     </div>
                     <div className="Card__name">
                         {pokemon.id}
@@ -41,6 +42,11 @@ function Card({ pokemon }) {
                         <div className="Card__data">
                             <p className="title">Ability</p>
                             <p className="ability">{pokemon.abilities[0].ability.name}</p>
+                        </div>
+                        <div className="Card__data">
+                            <p className="title">Characteristic</p>
+                            <p className="ability">{pokemon.characteristic != 'Not Found' ?
+                            pokemon.characteristic.descriptions[7].description : 'Not available'}</p>
                         </div>
                     </div>
             </div>

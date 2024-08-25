@@ -30,8 +30,9 @@ export async function getPokemonCharacteristic(url) {
             }
             else if (response.status === 404) {
                 //reject({rere: 'ffff'})
-                return{};
+                resolve('Not Found');
             }
+            
         })
         //   .then(data => {
         //         resolve(data);
@@ -39,6 +40,6 @@ export async function getPokemonCharacteristic(url) {
     })
 }
 
-export async function getPo(url) {
-    return new Promise( axios.get(url))
-}
+// export async function getPo(url) {
+//     return new Promise( axios.get(url))
+// }
